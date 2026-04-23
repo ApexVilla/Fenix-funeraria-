@@ -68,7 +68,8 @@ const InscricaoDigital: React.FC<InscricaoDigitalProps> = ({ onBack }) => {
     valor_pago_parcelas: '',
     obs: '',
     metodo_cobranca: '',
-    mesmo_endereco_cobranca: ''
+    mesmo_endereco_cobranca: '',
+    endereco_cobranca: ''
   };
 
   const [dependents, setDependents] = useState<Dependent[]>([]);
@@ -280,7 +281,12 @@ const InscricaoDigital: React.FC<InscricaoDigitalProps> = ({ onBack }) => {
     msg += `📅 *Data Pedido:* ${formData.data_pedido.split('-').reverse().join('/')}\n`;
     msg += `✅ *1ª Parcela Paga no Ato?* ${formData.pago_ato}\n`;
     if (formData.metodo_cobranca) msg += `💳 *Método de Cobrança:* ${formData.metodo_cobranca}\n`;
-    if (formData.metodo_cobranca === 'Cobrador') msg += `📍 *Cobrar no mesmo endereço?* ${formData.mesmo_endereco_cobranca || 'Não informado'}\n`;
+    if (formData.metodo_cobranca === 'Cobrador') {
+      msg += `📍 *Cobrar no mesmo endereço?* ${formData.mesmo_endereco_cobranca || 'Não informado'}\n`;
+      if (formData.mesmo_endereco_cobranca === 'Não' && formData.endereco_cobranca) {
+        msg += `🏠 *Endereço de Cobrança:* ${formData.endereco_cobranca}\n`;
+      }
+    }
     
     if (formData.pago_ato === 'Sim') {
       msg += `━━━━━━━━━━━━━━━━━━━━\n`;
@@ -776,6 +782,20 @@ const InscricaoDigital: React.FC<InscricaoDigitalProps> = ({ onBack }) => {
                     <option value="Sim">Sim</option>
                     <option value="Não">Não</option>
                   </select>
+                </div>
+              )}
+
+              {formData.metodo_cobranca === 'Cobrador' && formData.mesmo_endereco_cobranca === 'Não' && (
+                <div className="space-y-2 md:col-span-3">
+                  <label className="text-sm font-bold text-text-main">Endereço de Cobrança <span className="text-red-500">*</span></label>
+                  <input 
+                    type="text" 
+                    name="endereco_cobranca"
+                    value={formData.endereco_cobranca}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-secondary outline-none transition-all bg-white"
+                    placeholder="Ex: Rua das Flores, 123, Centro"
+                  />
                 </div>
               )}
 
