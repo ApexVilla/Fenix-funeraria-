@@ -28,6 +28,10 @@
   --color-footer: #0F2D54;
   --color-footer-dark: #0A1F3D;
 
+  /* Premium Shadows */
+  --shadow-premium: 0 10px 30px -10px rgba(27, 79, 138, 0.15), 0 4px 10px -5px rgba(27, 79, 138, 0.1);
+  --shadow-volumetric: 0 40px 80px -20px rgba(27, 79, 138, 0.2), 0 30px 60px -30px rgba(0, 0, 0, 0.15);
+
   /* Semantic */
   --color-success: #10B981;
   --color-whatsapp: #25D366;
@@ -208,14 +212,36 @@ h6 {
   outline: none;
 }
 
-/* ===== CARD HOVER ===== */
-.card-hover {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* ===== PREMIUM UTILITIES ===== */
+.glass-premium {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(27, 79, 138, 0.12);
+.glass-premium-dark {
+  background: rgba(27, 79, 138, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hover-lift {
+  transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: var(--shadow-volumetric);
+}
+
+.shadow-premium {
+  box-shadow: var(--shadow-premium);
+}
+
+.shadow-volumetric {
+  box-shadow: var(--shadow-volumetric);
 }
 
 /* ===== GRADIENT TEXT ===== */
@@ -434,6 +460,18 @@ h6 {
   .intro-logo__sub {
     font-size: 0.85rem;
   }
+}
+
+/* ===== SCROLL PROGRESS BAR ===== */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--color-gold), var(--color-gold-light));
+  transform-origin: 0%;
+  z-index: 100;
 }
 
 /* ===== SELECTION ===== */
